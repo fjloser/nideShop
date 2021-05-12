@@ -1,0 +1,18 @@
+/* pages/home/home.wxss */
+.home-top-box{
+  background-color: red;
+}
+.search{
+  position: relative;
+}
+.search input{
+  width: 500rpx;
+  height: 50rpx;
+  border-radius: 25rpx;
+  background-color: white;
+  padding: 0 50rpx;
+  margin-left: 50rpx;
+}
+.nav{
+  padding: 10rpx 0;
+}

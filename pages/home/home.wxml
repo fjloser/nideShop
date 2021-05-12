@@ -1,0 +1,11 @@
+<!-- pages/home/home.wxml -->
+<view class="home">
+<view class="home-top-box">
+  <view class="search">
+   <input type="text" name="search" placeholder="小瓶水"/>
+   <span class="iconfont icon-sousuo">888</span>
+   <span class="iconfont"></span>
+  </view>
+  <view class="nav"></view>
+</view>
+</view>
