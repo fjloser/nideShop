@@ -1,0 +1,18 @@
+/* pages/complete/complete.wxss */
+.top{
+  text-align: center;
+  font-size: 40rpx;
+}
+.alert-icon{
+  padding-top: 70rpx;
+}
+.btn{
+  margin-top: 100rpx;
+  padding: 20rpx;
+  text-align: center;
+  background: green;
+  border-radius: 50rpx;
+  font-weight: 550;
+  color: white;
+  box-shadow: 1px 1px 2px 1px gray;
+}

@@ -1,0 +1,8 @@
+<!--pages/complete/complete.wxml-->
+<view class="top">
+  <view class="alert-icon">
+    <icon type="success" size="100"></icon>
+  </view>
+  完成
+</view>
+<view class="btn">关闭</view>

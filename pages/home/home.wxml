@@ -1,11 +1,158 @@
 <!-- pages/home/home.wxml -->
 <view class="home">
-<view class="home-top-box">
-  <view class="search">
-   <input type="text" name="search" placeholder="小瓶水"/>
-   <span class="iconfont icon-sousuo">888</span>
-   <span class="iconfont"></span>
+  <view class="home-top-box">
+    <view class="search">
+      <input type="text" name="search" placeholder="小瓶水" />
+      <text class="iconfont icon-sousuo"></text>
+      <text class="iconfont icon-xiangji"></text>
+    </view>
+    <view class="scroll-box">
+      <scroll-view class="nav-box" enable-flex="true" scroll-x="true">
+        <view wx:for="{{nav}}" wx:for-index="idx" wx:key="index" class="nav-list">
+          {{item}}
+        </view>
+      </scroll-view>
+      <view class="nav-menu">></view>
+    </view>
   </view>
-  <view class="nav"></view>
-</view>
+  <view class="content-box">
+    <view class="content-top"></view>
+    <view class="content">
+      <view class="swiper1">
+        <swiper indicator-dots="true" indicator-color="rgba(0,0,0,.3)" indicator-active-color="#000000" autoplay="true"
+          interval="4000" duration="1000" circular="true">
+          <block wx:for="{{swiper1}}" wx:key="index">
+            <swiper-item>
+              <view class="swiper-item {{item}}">
+                <image src="../../source/img/u=2952775945,1733624992&fm=11&gp=0.jpg" style="width:100%;height:100%"></image>
+              </view>
+            </swiper-item>
+          </block>
+        </swiper>
+      </view>
+      <view class="swiper2">
+        <swiper indicator-dots="true" indicator-color="rgba(0,0,0,.3)" indicator-active-color="#000000" interval="4000"
+          duration="1000" circular="true">
+          <block wx:for="{{kind}}" wx:key="index">
+            <swiper-item>
+              <view class="kind">
+                <view class="kind-list" wx:for="{{kind[index]}}" wx:key="idx">
+                  <image src="{{item.img}}"></image>
+                  <view class="kinds-name">{{item.title}}</view>
+                </view>
+              </view>
+            </swiper-item>
+          </block>
+        </swiper>
+      </view>
+      <view class="introduce">
+        <image src="../../source/img/u=2952775945,1733624992&fm=11&gp=0.jpg" style="width: 100%; height: 100%"></image>
+      </view>
+      <view class="well-goods">
+        <view class="goods-scroll">
+          <scroll-view class="time-goods-box" scroll-x="true">
+            <view class="time-goods-list {{index}}" wx:for="{{timeGoods}}" wx:key="index">
+              <image src="{{item.img}}" style="width: 100rpx; height: 150rpx"></image>
+              <view class="now-price"><text>￥</text>{{item.nowPrice}}</view>
+              <view class="pre-price"><text>￥</text>{{item.prePrice}}</view>
+            </view>
+          </scroll-view>
+        </view>
+        <view class="goods-mid">
+          <view class="goods-mid-list goods-mid-list1">
+            <view class="title">
+              <view>品牌闪购</view>
+              <view>大牌限时特卖</view>
+            </view>
+            <view class="image-box">
+              <image src="../../source/img/u=3983193616,409991398&fm=26&gp=0.jpg" style="width: 100%; height: 120rpx"></image>
+            </view>
+          </view>
+          <view class="goods-mid-list goods-mid-list2">
+            <view class="title">
+              <view>排行榜</view>
+              <view>跟榜购好物</view>
+            </view>
+            <view class="image-box">
+              <image src="../../source/img/u=3983193616,409991398&fm=26&gp=0.jpg" style="width: 100%; height: 120rpx"></image>
+            </view>
+          </view>
+          <view class="goods-mid-list goods-mid-list3">
+            <view class="title">
+              <view>每日特价</view>
+              <view>9块9疯抢</view>
+            </view>
+            <view class="image-box">
+              <image src="../../source/img/u=3983193616,409991398&fm=26&gp=0.jpg" style="width: 100%; height: 120rpx"></image>
+            </view>
+          </view>
+          <view class="goods-mid-list goods-mid-list4">
+            <view class="title">
+              <view>新品首发</view>
+              <view>全网抢先购</view>
+            </view>
+            <view class="image-box">
+              <image src="../../source/img/u=3983193616,409991398&fm=26&gp=0.jpg" style="width: 100%; height: 120rpx"></image>
+            </view>
+          </view>
+        </view>
+        <view class="goods-bottom">
+          <view class="goods-bottom-list list1">
+            <view class="title">
+              <view>东家小院</view>
+              <view>小院种草 ></view>
+            </view>
+            <view class="image-box">
+              <image src="../../source/img/u=3983193616,409991398&fm=26&gp=0.jpg" style="width: 50%; height: 120rpx"></image>
+              <image src="../../source/img/u=3983193616,409991398&fm=26&gp=0.jpg" style="width: 50%; height: 120rpx"></image>
+            </view>
+          </view>
+          <view class="goods-bottom-list list2">
+            <view class="title">
+              <view>京东直播</view>
+              <view>主播力荐 ></view>
+            </view>
+            <view class="image-box">
+              <image src="../../source/img/u=3983193616,409991398&fm=26&gp=0.jpg" style="width: 50%; height: 120rpx"></image>
+              <image src="../../source/img/u=3983193616,409991398&fm=26&gp=0.jpg" style="width: 50%; height: 120rpx"></image>
+            </view>
+          </view>
+        </view>
+      </view>
+      <view class="goods-box">
+        <view class="goods-column1 goods-column">
+          <view class="goods-list1 goods-list">
+            <view class="image-box">
+              <image src="../../source/img/u=2479645721,1871304316&fm=26&gp=0.jpg" style="width: 100%; height: 300rpx"></image>
+            </view>
+            <view class="goods-mes">
+              <text></text>
+              <text>怡宝 饮用水 纯净水 350ml*24瓶 整箱装</text>
+            </view>
+            <view class="goods-price"><text>￥</text> 30.9</view>
+            <view class="goods-comment">
+              <text>万+条评论</text>
+              <text>...</text>
+            </view>
+          </view>
+        </view>
+        <view class="goods-column2 goods-column">
+          <view class="goods-list1 goods-list">
+            <view class="image-box">
+              <image src="../../source/img/u=2479645721,1871304316&fm=26&gp=0.jpg" style="width: 100%; height: 300rpx"></image>
+            </view>
+            <view class="goods-mes">
+              <text></text>
+              <text>怡宝 饮用水 纯净水 350ml*24瓶 整箱装</text>
+            </view>
+            <view class="goods-price"><text>￥</text>30.9</view>
+            <view class="goods-comment">
+              <text>万+条评论</text>
+              <text>...</text>
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
 </view>

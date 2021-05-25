@@ -1,1 +1,69 @@
 /* pages/kinds/kinds.wxss */
+.kinds-container{
+  border-top: 1px solid rgba(0, 0, 0, .2)
+}
+.aside-nav{
+  position: fixed;
+  left: 0;
+  height: 100vh;
+  width: 170rpx;
+  text-align: center;
+  background: #eeeeee;
+  font-size: 22rpx;
+}
+.aside-nav .nav-list{
+  position: relative;
+  height: 80rpx;
+  line-height: 80rpx;
+  /* border: 1px solid black; */
+}
+.aside-nav .nav-list.cur{
+  background: white;
+  font-size: 24rpx;
+  font-weight: 550;
+}
+.aside-nav .nav-list.cur::before{
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  content: '';
+  width: 5px;
+  height: 15px;
+  background: red;
+}
+.right-kinds-box{
+  margin-left: 170rpx;
+  padding: 30rpx;
+  background: #fafafa
+}
+.right-kinds-box .kind-list{
+  box-sizing: border-box;
+  width: 100%;
+  padding: 20rpx;
+  background: white;
+  margin-bottom: 20rpx;
+  border-radius: 20rpx;
+}
+.kind-list .kind-name{
+  font-size: 24rpx;
+  font-weight: 550;
+  margin-bottom: 10px;
+}
+.detail-kind-box{
+  margin: -20rpx -20rpx;
+}
+.clear::after{
+  content: '';
+  display: block;
+  clear: both;
+}
+.detail-kind-list{
+  box-sizing: border-box;
+  float: left;
+  width: 33.3%;
+  padding: 20rpx 20rpx;
+  font-size: 20rpx;
+  font-weight: 550;
+  text-align: center;
+}

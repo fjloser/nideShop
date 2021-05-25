@@ -1,0 +1,85 @@
+.goods-navigation{
+  position: fixed;
+  top: 0;
+  width: 100vw;
+  border-bottom: 1px solid rgba(0, 0, 0, .1);
+  background: white;
+}
+.goods-navigation .input-box{
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.goods-navigation .input-box input{
+  background: #fafafa;
+  width: 300rpx;
+  height: 32px;
+  margin-right: 100rpx;
+  /* padding-top: 4px; */
+  border-radius: 16px;
+  font-size: 26rpx;
+}
+.goods-navigation .input-box input{
+  padding: 0 30rpx;
+}
+.goodsList-container{
+  padding: 0 30rpx;
+}
+.goods-list{
+  display: flex;
+  align-items: center;
+  margin: 20rpx 0;
+}
+.goods-info{
+  flex: 1;
+  margin-left: 20rpx;
+}
+.goods-info .goods-title{
+  margin-bottom: 10rpx;
+  word-break: break-all;
+}
+.goods-info .goods-keyWords{
+  margin-bottom: 10rpx;
+}
+.goods-info .goods-keyWords text{
+  padding: 5rpx 10rpx;
+  border-radius: 20rpx;
+  background: #eeeeee;
+  font-size: 20rpx;
+  color: gray;
+  margin-right: 20rpx;
+}
+.goods-info .goods-price{
+  font-size: 28rpx;
+  color: red;
+  font-weight: 550;
+  margin-bottom: 10rpx;
+}
+.goods-info .goods-price text{
+  font-size: 20rpx;
+}
+.goods-info .goods-tag{
+  font-size: 20rpx;
+  margin-bottom: 10rpx;
+}
+.goods-info .goods-tag text{
+  padding: 5rpx 10rpx;
+  border-radius: 10rpx;
+  background: red;
+  color: white;
+  margin-right: 20rpx;
+}
+.goods-comment{
+  font-size: 24rpx;
+  color: gray;
+}
+.shop{
+  font-size: 24rpx;
+  color: gray;
+}
+.shop text{
+  color: black;
+  margin-left: 10rpx;
+}

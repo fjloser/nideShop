@@ -1,0 +1,23 @@
+<view class="goods-navigation" style="height: {{navigationHeight}}px; padding-top: {{statusBarHeight}}px">
+  <view class="input-box">
+    <input type="text" placeholder="搜索京东商铺"/>
+  </view>
+</view>
+<view class="goodsList-container" style="padding-top: {{navigationHeight + statusBarHeight}}px">
+  <view bindtap="bindTap" class="goods-list list{{index}}" wx:for="{{goods}}" wx:key="index">
+    <image src="../../source/img/u=2479645721,1871304316&fm=26&gp=0.jpg" style="width: 270rpx; height: 270rpx; border-radius: 20rpx;"></image>
+    <view class="goods-info">
+      <view class="goods-title">{{item.title}}</view>
+      <view class="goods-keyWords">
+        <text wx:for="{{item.keyWords}}" wx:key="index">{{item}}</text>
+      </view>
+      <view class="goods-price"><text>￥</text>{{item.nowPrice}}</view>
+      <view class="goods-tag">
+        <text wx:for="{{item.tag}}" wx:key="index">{{item}}</text>
+      </view>
+      <view class="goods-comment">{{item.comment}}</view>
+      <view class="shop">{{item.shopName}} <text>进店></text></view>
+    </view>
+    <cover-image src="../../source/img/购物车.png" style="width: 50rpx; height: 50rpx"></cover-image>
+  </view>
+</view>

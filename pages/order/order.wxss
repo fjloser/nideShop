@@ -1,0 +1,114 @@
+/* pages/order/order.wxss */
+.order-container{
+  background: #eeeeee;
+}
+.custom-mes{
+  padding: 30rpx;
+  /* height: 80rpx; */
+  width: 100vw;
+  border-bottom: 1px solid rgba(0, 0, 0, .1);
+}
+.custom-mes .custom-info{
+  font-weight: 550;
+  margin-bottom: 10rpx;
+}
+.custom-mes .custom-info .custom-name{
+  margin-right: 40rpx;
+}
+.send-site{
+  font-size: 28rpx;
+}
+.order-box{
+  height: 90vh;
+}
+.order-box .order-list{
+  box-sizing: border-box;
+  width: 100%;
+  padding: 30rpx;
+  background: white;
+  border-radius: 20rpx;
+  margin: 20rpx 0;
+}
+.goods-shop{
+  font-size: 28rpx;
+  font-weight: 550;
+  margin-bottom: 30rpx;
+}
+.goods-box{
+  display: flex;
+  align-items: center;
+  /* overflow: hidden; */
+}
+.goods-image{
+  width: 150rpx;
+  height: 150rpx;
+  min-width: 150rpx;
+  min-height: 150rpx;
+  margin-right: 20rpx;
+  border: 1px solid;
+}
+.order-goods-box{
+  width: 75%;
+}
+.goods-title{
+  /* width: 100%; */
+  font-size: 26rpx;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  margin-bottom: 10rpx;
+}
+.goods-size{
+  width: 100%;
+  font-size: 20rpx;
+  color:gray;
+  margin-bottom: 10rpx;
+  white-space: normal;
+}
+.goods-price{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.goods-price .price{
+  color: red;
+  font-size: 28rpx;
+  font-weight: 550;
+}
+.goods-price .goods-num{
+  font-size: 26rpx;
+  color: gray;
+}
+.pay-box{
+  position: fixed;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100vw;
+  bottom: 0;
+  padding: 10rpx;
+  background: white;
+  box-shadow: 0 1px .5px 2.5px rgba(116, 114, 114, .4);
+}
+.all-price{
+  font-size: 30rpx;
+  font-weight: 550;
+  margin-left: 30rpx;
+}
+.all-price text{
+  font-size: 28rpx;
+  color: red;
+  margin-left: 20rpx;
+}
+.pay-btn{
+  width: 300rpx;
+  height: 60rpx;
+  margin-right: 20rpx;
+  text-align: center;
+  line-height: 60rpx;
+  font-size: 30rpx;
+  color: white;
+  font-weight: 550;
+  background: green;
+  border-radius: 30rpx;
+}
