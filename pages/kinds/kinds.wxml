@@ -1,8 +1,11 @@
 <!--pages/kinds/kinds.wxml-->
 <view class="kinds-container">
 <scroll-view class="aside-nav" scroll-y="true">
+  <view data-curId="{{item.good_type_id}}" class="nav-list {{typeId == item.good_type_id ? 'cur' : ''}}" bindtap="addCur" wx:for="{{showData}}" wx:key="index">
+    {{item.type_name}}
+  </view>
   <view data-curId="{{item.typeId}}" class="nav-list {{typeId == item.typeId ? 'cur' : ''}}" bindtap="addCur" wx:for="{{type}}" wx:key="index">
-    {{item.title}}
+  {{item.title}}
   </view>
 </scroll-view>
 <view class="right-kinds-box">
