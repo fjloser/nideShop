@@ -45,7 +45,6 @@
   min-width: 150rpx;
   min-height: 150rpx;
   margin-right: 20rpx;
-  border: 1px solid;
 }
 .order-goods-box{
   width: 75%;
@@ -111,4 +110,80 @@
   font-weight: 550;
   background: green;
   border-radius: 30rpx;
+}
+/*dizhi*/
+.select-site-box{
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  /* width: 100vw; */
+  height: 100vh;
+  background: gray;
+  border: 1px solid red;
+}
+.select-site-wrapper{
+  box-sizing: border-box;
+  position: absolute;
+  bottom: 0;
+  height: 500px;
+  width: 100vw;
+  padding: 30rpx 0 0 30rpx;
+  border-top-left-radius: 25rpx;
+  border-top-right-radius: 25rpx;
+  background: white;
+}
+.select-site-wrapper .top-title{
+  text-align: center;
+  font-weight: 550;
+  margin-bottom: 20rpx;
+}
+.select-site-wrapper .site-box{
+  height: 80%;
+}
+.site-list{
+  display: flex;
+  align-items: center;
+  padding: 30rpx 0;
+  border-bottom: 1px solid rgba(0, 0, 0,.1);
+  font-size: 24rpx;
+}
+.site-box .site-list:nth-last-of-type(1){
+  border-bottom: 0;
+}
+.site-box .select{
+  margin-right: 20rpx;
+}
+.site-box .select radio .wx-radio-input{
+  width: 25rpx;
+  height: 25rpx;
+  border-radius: 50%;
+  }
+.select-btn{
+  position: absolute;
+  width: 90%;
+  left: 50%;
+  transform: translateX(-50%);
+  margin-bottom: 10rpx;
+  bottom: 10rpx;
+  padding: 20rpx;
+  font-size: 26rpx;
+  font-weight: 550;
+  color: white;
+  text-align: center;
+  background: red;
+  border-radius: 60rpx;
+}
+.close-btn{
+  position: absolute;
+  top: 30rpx;
+  right: 30rpx;
+  width: 35rpx;
+  height: 35rpx;
+  background: rgba(0, 0, 0,.1);
+  border-radius: 50%;
+  text-align: center;
+  line-height: 35rpx;
+  font-size: 24rpx;
+  color: gray;
 }

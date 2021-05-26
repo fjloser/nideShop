@@ -34,6 +34,7 @@ Page({
         token: wx.getStorageSync('token')
       },
       success: res => {
+        console.log(res)
         this.setData({
           goods: res.data.data.data
         })
@@ -199,13 +200,13 @@ Page({
     var orderArr = []
     for(let i = 0; i < this.data.goods.length; i++){
       if(this.data.goods[i].checked){
-        orderArr.push(this.data.goods[i].shopping_car_id)
+        orderArr.push(this.data.goods[i])
       }
     }
-    var shoppingCarId = JSON.stringify(orderArr)
+    var shoppingCar = JSON.stringify(orderArr)
     if(orderArr.length != 0){
       wx.navigateTo({
-        url: '/pages/order/order',
+        url: '/pages/order/order?shoppingCar=' + shoppingCar + '&allPrice=' + this.data.allPrice,
       })
     }
   },

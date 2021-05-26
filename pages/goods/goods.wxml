@@ -64,7 +64,7 @@
         <text>总计</text>
         <text>:￥{{allPrice}}</text>
       </view>
-      <view class="pay-btn" wx:if="{{!editFlag}}">去结算</view>
+      <view class="pay-btn" wx:if="{{!editFlag}}" bindtap="navToPay">去结算</view>
       <view class="remove-btn" wx:if="{{editFlag}}" bindtap="removeGoods">删除</view>
     </view>
   </view>

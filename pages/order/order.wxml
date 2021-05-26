@@ -5,7 +5,7 @@
       <text class="custom-name">fj</text>
       <text class="custom-phone">889988888</text>
     </view>
-    <view class="send-site">
+    <view class="send-site" bindtap="openSite">
       {{site}}
     </view>
   </view>
@@ -14,14 +14,18 @@
       <view class="goods-shop">官方旗舰店</view>
       <view class="goods-box">
         <view class="goods-image">
-          <image src="../../source/img/u=2479645721,1871304316&fm=26&gp=0.jpg" style="width: 100%; height: 100%"></image>
+          <image src="{{item.img}}" wx:if="{{item.img}}" style="width: 100%; height: 100%"></image>
         </view>
         <view class="order-goods-box">
-          <view class="goods-title">{{item.title}}</view>
-          <view class="goods-size">{{item.size}}</view>
+          <view class="goods-title">{{item.good_name}}</view>
+          <view class="goods-size">
+            <view class="sku-list" wx:for="{{item.sku}}" wx:for-index="index1" wx:for-item="item1" wx:key="index1">
+              {{item1}}
+            </view>
+          </view>
           <view class="goods-price">
             <view class="price">￥{{item.price}}</view>
-            <view class="goods-num">×{{item.number}}</view>
+            <view class="goods-num">×{{item.num}}</view>
           </view>
         </view>
       </view>
@@ -30,5 +34,22 @@
   <view class="pay-box">
     <view class="all-price">总计:<text>{{price}}</text></view>
     <view class="pay-btn">微信支付</view>
+  </view>
+  <view class="select-site-box" wx:if="{{showSite}}">
+    <div class="select-site-wrapper">
+      <view class="close-btn" bindtap="closeSite">×</view>
+      <view class="top-title">配送至</view>
+      <scroll-view scroll-y="true" class="site-box">
+        <radio-group bindchange="radioChange">
+          <view class="site-list site-list{{index}}" wx:for="{{siteArr}}" wx:key="index">
+            <view class="select">
+              <radio name="site" color="red" style="width: 25rpx; height: 25rpx" value="{{item}}" />
+            </view>
+            <view class="select-site">{{item}}</view>
+          </view>
+        </radio-group>
+      </scroll-view>
+      <view class="select-btn" bindtap="selectSite">选择其它地址</view>
+    </div>
   </view>
 </view>
