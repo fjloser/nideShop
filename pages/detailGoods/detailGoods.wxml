@@ -1,21 +1,21 @@
 <!--pages/detailGoods/detailGoods.wxml-->
 <view class="detail-container">
   <view class="swiper1-box">
-    <swiper circular="true">
+    <swiper circular="true" bindchange="swiperChange">
       <block wx:for="{{swiper1}}" wx:key="index">
         <swiper-item>
-          <view class="swiper-item {{item}}">
-            <image src="../../source/img/u=2952775945,1733624992&fm=11&gp=0.jpg" style="width:100%;height:100%">
+          <view class="swiper-item {{index}}">
+            <image src="{{item}}" wx:if="{{item}}" style="width:100%; height:100%">
             </image>
           </view>
         </swiper-item>
       </block>
     </swiper>
-    <view class="swiper-index"><text>2</text>/<text>1</text></view>
+    <view class="swiper-index"><text>{{item}}</text><text>{{curSwiper}}</text>/<text>{{swiper1.length}}</text></view>
   </view>
   <view class="goods-detail-box">
     <view class="mes-top">
-      <view class="price"><text>￥</text>888</view>
+      <view class="price"><text>￥</text>{{showGoods.price}}</view>
       <view class="cutPrice">
         <view class="cut-image" style="width: 30rpx; height: 30rpx; border: 1px solid black">
           <image></image>
@@ -32,8 +32,8 @@
     </view>
     <view class="mes-box">
       <view class="mes-title-box">
-        <view class="mes mes1"><text>{{goods.tag[0].name}}</text> {{goods.tag[0].title}}</view>
-        <view class="mes mes2"><text>{{goods.tag[1].name}}</text>{{goods.tag[1].title}}正正正色u额u额也有觉得月</view>
+        <view class="mes mes1"><text>{{tag[0].name}}</text>一站式囤生活好物</view>
+        <view class="mes mes2"><text>{{tag[1].name}}</text>{{title}}</view>
       </view>
       <view class="adopt">
         <view class="adopt-image" style="width: 30rpx; height: 30rpx; border: 1px solid black;">
@@ -53,14 +53,14 @@
       <text>送至</text>
       <vie class="show-site-box">
         <view class="site">{{site}}</view>
-        <view class="send-time">jhduuee</view>
+        <view class="send-time">京东快递</view>
       </vie>
       <view class="icon"><text></text><text></text><text></text></view>
     </view>
     <view class="service">
       <view class="service-list list1">
         <text class="iconfont">勾</text>
-        视觉u额呵呵呵
+        协议1
       </view>
       <view class="icon"><text></text><text></text><text></text></view>
     </view>
@@ -70,46 +70,62 @@
       <view class="iconfont" style="width: 20rpx; height: 20rpx; border: 1px solid black"></view>
       <text>店铺</text>
     </view>
-    <view class="shop-car">
+    <view class="shop-car" bindtap="navtoGoods">
       <view class="iconfont" style="width: 20rpx; height: 20rpx; border: 1px solid black"></view>
       <text>购物车</text>
       <text class="myGoods-num">{{goodsCar.length}}</text>
     </view>
-    <view class="add-car" bindtap="addGoodsCar">加入购物车</view>
-    <view class="buy-btn" bindtap="bindTap">立即购买</view>
+    <view data-goodId="{{goodId}}" class="add-car" bindtap="addGoodsCar">加入购物车</view>
+    <view data-goodId="{{goodId}}" class="buy-btn" bindtap="bindTap">立即购买</view>
   </view>
   <view class="select-num-box" wx:if="{{selectSizeFlag}}">
     <view class="select-goods-box">
       <view class="close-btn" bindtap="showSize">×</view>
       <view class="select-goods-top">
         <view class="select-goods-image">
-          <image src="../../source/img/u=2479645721,1871304316&fm=26&gp=0.jpg" style="width: 100%; height: 100%">
+          <image src="{{showGoods.img}}" style="width: 100%; height: 100%">
           </image>
         </view>
         <view class="goods-num-box">
           <view class="show-goods-price">
             <text>￥</text>
-            {{goods.price}}
+            {{showGoods.price}}
           </view>
           <view class="show-goods-num">
             已选
+            <text wx:for="{{selectSku}}" wx:key="index">{{item}},</text>
             <text>{{goodsNum}}个</text>
           </view>
         </view>
       </view>
-      <view class="select-goods-num">
-        <view>数量</view>
-        <view>
-          <text bindtap="cutGoodsNum">-</text>
-          <view class="select-num">
-            <input type="number" value="{{goodsNumCache}}" bindblur="listenGoodsNum"/>
+      <scroll-view class="select-size-box" scroll-y="true">
+        <view class="sku-box">
+          <view class="sku-type" wx:for="{{sku}}" wx:for-index="index1" wx:key="index1">
+            <view class="sku-name">{{item.sku_name}}</view>
+            <view class="type-box">
+              <text data-type="{{index1}}" wx:for="{{item.sku_size}}"
+               wx:key="index" 
+               data-index="{{index}}"
+               data-size="{{item.size}}"
+               class="{{selectSku[index1] == item.size ? 'active' : ''}}"
+               bindtap="selectSku">{{item.size}}</text>
+            </view>
           </view>
-          <text bindtap="addGoodsNum">+</text>
         </view>
-      </view>
+        <view class="select-goods-num">
+          <view>数量</view>
+          <view>
+            <text bindtap="cutGoodsNum">-</text>
+            <view class="select-num">
+              <input type="number" value="{{goodsNumCache}}" bindblur="listenGoodsNum" />
+            </view>
+            <text bindtap="addGoodsNum">+</text>
+          </view>
+        </view>
+      </scroll-view>
       <view class="buy-btn-box">
-        <view class="add-car" bindtap="numAndGoodsCar">加入购物车</view>
-        <view class="buy-btn" bindtap="bindTap">立即购买</view>
+        <view data-goodId="{{goodId}}" class="add-car" bindtap="numAndGoodsCar">加入购物车</view>
+        <view data-goodId="{{goodId}}" class="buy-btn" bindtap="bindTap">立即购买</view>
       </view>
     </view>
   </view>

@@ -5,11 +5,23 @@ Page({
    * 页面的初始数据
    */
   data: {
+    showGoods: {},
+    goodId: '',
+    selectSize: '',
+    selectSku: [],
+    sku: [],
+    form: {
+
+    },
+
+    title:'',
+
     siteCache: '',
     site: '成都市',
     selectSizeFlag: false,
     selectSiteFlag: false,
-    swiper1: [1,2,3],
+    swiper1: [],
+    curSwiper: 1,
     goodsNum: 1,
     goodsNumCache: '',
     goods: {price: 888,
@@ -27,6 +39,12 @@ Page({
       goodsNumCache: this.data.goodsNum
     })
   },
+  swiperChange(e){
+    this.setData({
+      curSwiper: e.detail.current + 1
+    })
+  },
+  /*输入数量*/
   listenGoodsNum: function(e){
     if(e.detail.value){
       this.setData({
@@ -38,6 +56,7 @@ Page({
       })
     }
   },
+  /*数量改变*/
   addGoodsNum: function(){
     this.setData({
       goodsNumCache: ++this.data.goodsNumCache
@@ -54,6 +73,7 @@ Page({
       selectSizeFlag: !this.data.selectSizeFlag
     })
   },
+  /*改变数量并加入购物车*/
   numAndGoodsCar: function(){
     this.changeGoodsNum()
     this.addGoodsCar()
@@ -78,8 +98,53 @@ Page({
       site: this.data.siteCache
     })
   },
+  selectSku(e){
+    console.log(e)
+    let type = e.currentTarget.dataset.type
+    let index = e.currentTarget.dataset.index
+    console.log(type, index)
+    let push = 'selectSku[' + type + ']'
+    console.log(this.data.sku[type].sku_size[index].size)
+    // if()
+    this.setData({
+      [push]: this.data.sku[type].sku_size[index].size
+    })
+    console.log(this.data.selectSku)
+  },
   /*add to goodsCar*/
+  getForm(){
+    let goodId = "form.goodId"
+    let num = 'form.size'
+    let site = 'form.site'
+    let price = 'form.price'
+    let allPrice = 'form.allPrice'
+    let sku = 'form.sku'
+    this.setData({
+      [goodId]: this.data.goodId,
+      [num]: this.data.goodsNum,
+      [site]: this.data.site,
+      [price]: this.data.showGoods.price,
+      [allPrice]: this.data.goodsNum*this.data.showGoods.price,
+      [sku]: this.data.sku
+    })
+  },
   addGoodsCar: function(){
+    console.log(this.data.goodsNum*this.data.showGoods.price)
+    wx.request({
+      method: 'post',
+      url: 'http://api_devs.wanxikeji.cn/api/shoppingCarAddModify',
+      data: {
+        token: wx.getStorageSync('token'),
+        good_id: parseInt(this.data.goodId),
+        num: this.data.goodsNum,
+        price: this.data.showGoods.price,
+        money: this.data.goodsNum*this.data.showGoods.price,
+        sku: JSON.stringify(this.data.selectSku),
+      },
+      success: res => {
+        console.log(res)
+      }
+    })
     console.log(1)
   },
   bindTap: function(){
@@ -87,10 +152,52 @@ Page({
       url: '/pages/order/order',
     })
   },
+  navtoGoods: function(){
+    wx.switchTab({
+      url: '/pages/goods/goods'
+    })
+  },
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    console.log(options)
+    this.setData({
+      goodId: options.goodId
+    })
+    wx.request({
+      method: 'post',
+      url: 'http://api_devs.wanxikeji.cn/api/goodInfo',
+      data: {
+        good_id: this.data.goodId
+      },
+      success: res => {
+        console.log(res.data.data)
+        this.setData({
+          showGoods: res.data.data,
+        })
+        console.log( JSON.parse(this.data.showGoods.info[0].edition))
+        this.setData({
+          swiper1: JSON.parse(this.data.showGoods.info[0].imgs),
+          title: JSON.parse(this.data.showGoods.info[0].info),
+          sku: JSON.parse(JSON.parse(this.data.showGoods.info[0].edition))
+        })
+        for(let i = 0; i < this.data.sku.length; i++){
+          let index = 'selectSku[' + i + ']'
+          this.setData({
+            [index]: this.data.sku[i].sku_size[0].size
+          })
+        }
+      }
+    })
+    // wx.request({
+    //   method: 'post',
+    //   url: 'http://api_devs.wanxikeji.cn/api/shoppingCarList',
+    //   data: {
+    //     token: ''
+    //   },
+    // })
+
     this.setData({
       goodsNumCache: this.data.goodsNum
     })

@@ -24,25 +24,30 @@
         <view class="goods-shop">店铺名</view>
         <view class="goods-wrapper">
           <view class="radio">
-            <checkbox style="border-radius= 30rpx" model:checked="{{item.checked}}" value="{{item.goodsId}}"></checkbox>
+            <checkbox style="border-radius= 30rpx" model:checked="{{item.checked}}" value="{{item.good_id}}"></checkbox>
           </view>
           <view class="goods-mes-box">
             <view class="goods-image">
-              <image src="../../source/img/u=2479645721,1871304316&fm=26&gp=0.jpg" style="width: 100%; height: 100%">
+              <image src="{{item.img}}" wx:if="{{item.img}}" style="width: 100%; height: 100%">
               </image>
             </view>
             <view class="goods-info-box">
-              <view class="goods-title">{{item.title}}装</view>
-              <view class="goods-size">{{item.size}}</view>
+              <view class="goods-title">{{item.good_name}}</view>
+              <view class="goods-size">
+                <view class="sku-list" wx:for="{{item.sku}}" wx:for-index="index1" wx:for-item="item1" wx:key="index1">
+                  {{item1}}
+                </view>
+                <view>×{{item.num}}</view>
+              </view>
               <view class="goods-price">
                 <view class="price">￥{{item.price}}</view>
                 <view class="goods-num">
-                  <text id="cut{{item.goodsId}}" bindtap="cutGoodsNum">-</text>
+                  <text id="cut{{item.good_id}}" bindtap="cutGoodsNum">-</text>
                   <view class="select-num">
-                    <input type="number" maxlength="4" value="{{item.number}}" bindblur="changeGoodsNum"
-                      id="{{item.goodsId}}" />
+                    <input type="number" maxlength="4" value="{{item.num}}" bindblur="changeGoodsNum"
+                      id="{{item.good_id}}" />
                   </view>
-                  <text id="add{{item.goodsId}}" bindtap="addGoodsNum">+</text>
+                  <text id="add{{item.good_id}}" bindtap="addGoodsNum">+</text>
                 </view>
               </view>
             </view>

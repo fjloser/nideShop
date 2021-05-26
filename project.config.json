@@ -39,7 +39,7 @@
     "minifyWXSS": true
   },
   "compileType": "miniprogram",
-  "libVersion": "2.15.0",
+  "libVersion": "2.17.0",
   "appid": "wx4d3f39d47981353c",
   "projectname": "nideShop",
   "debugOptions": {

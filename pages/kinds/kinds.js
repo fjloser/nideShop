@@ -7,6 +7,7 @@ Page({
   data: {
     typeId: 1,
     showData: [],
+    rightData: [],
     kind: [],
     type: [
       {
@@ -73,14 +74,28 @@ Page({
     ]
   },
   addCur: function (e) {
+    // console.log(e)
     let curid = e.currentTarget.dataset.curid
+    // console.log(e.currentTarget.dataset.curid)
     this.setData({
       typeId: curid
     })
+    this.checkTypeId()
+  },
+  checkTypeId: function(){
+    for(let i = 0; i < this.data.showData.length; i++){
+      if(this.data.showData[i].good_type_id == this.data.typeId){
+        this.setData({
+          rightData: this.data.showData[i].children
+        })
+      }
+    }
   },
   bindTap: function(e){
+    console.log(e)
+    let typeId = e.currentTarget.dataset.typeid
     wx.redirectTo({
-      url: '../goodsList/goodsList?typeId=1',
+      url: '../goodsList/goodsList?typeId=' + typeId,
     })
   },
   /*构建树形结构*/
@@ -139,6 +154,7 @@ Page({
         this.setData({
           typeId: this.data.showData[0].good_type_id
         })
+        this.checkTypeId()
         console.log(this.data.showData)
       }
     })

@@ -9,6 +9,15 @@
   </view>
 </scroll-view>
 <view class="right-kinds-box">
+  <view class="kind-list" wx:for="{{rightData}}" wx:key="index">
+    <view class="kind-name">{{item.type_name}}</view>
+    <view class="detail-kind-box clear">
+      <view data-typeId="{{item.good_type_id}}" class="detail-kind-list list{{index}}" wx:for="{{item.children}}" wx:key="index" bindtap="bindTap">
+        <image src="../../source/img/u=2479645721,1871304316&fm=26&gp=0.jpg" style="width: 80%; height: 100rpx"></image>
+        <view>{{item.type_name}}</view>
+      </view>
+    </view>
+  </view>
   <view class="kind-list" wx:for="{{kinds}}" wx:key="index">
     <view class="kind-name">{{item.kind}}</view>
     <view class="detail-kind-box clear">

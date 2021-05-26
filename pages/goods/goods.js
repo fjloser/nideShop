@@ -13,52 +13,42 @@ Page({
     checkAll: false,
     siteArr: ['ueueyeyyeyy', '四川省邻水县', 2, 3, 4, 5, 6, 6, 6, 7, 4, 3, 2, 14, 5, 24],
     allPrice: 855,
+    goodCar: [],
     goods: [{
         type: '1',
-        goodsId: '255',
+        good_id: '255',
         price: '52',
-        title: '怡宝 饮用水 纯净水350*24 整项庄',
+        good_name: '怡宝 饮用水 纯净水350*24 整项庄',
         size: 'huehehh',
         number: 1,
         checked: false
-      },
-      {
-        type: '1',
-        goodsId: '256',
-        price: '52',
-        title: '怡宝 饮用水 纯净水350*24 整项庄',
-        size: 'huehehh',
-        number: 1,
-        checked: false
-      },
-      {
-        type: '1',
-        goodsId: '257',
-        price: '52',
-        title: '怡宝 饮用水 纯净水350*24 整项庄',
-        size: 'huehehh',
-        number: 1,
-        checked: true
-      },
-      {
-        type: '1',
-        goodsId: '258',
-        price: '52',
-        title: '怡宝 饮用水 纯净水350*24 整项庄',
-        size: 'huehehh',
-        number: 1,
-        checked: false
-      },
-      {
-        type: '1',
-        goodsId: '259',
-        price: '52',
-        title: '怡宝 饮用水 纯净水350*24 整项庄',
-        size: 'huehehh',
-        number: 1,
-        checked: true
       }
     ]
+  },
+  onLoad: function (options) {
+    this.addPrice()
+    wx.request({
+      method: 'post',
+      url: 'http://api_devs.wanxikeji.cn/api/shoppingCarList',
+      data: {
+        token: wx.getStorageSync('token')
+      },
+      success: res => {
+        this.setData({
+          goods: res.data.data.data
+        })
+        for(let i = 0; i < this.data.goods.length; i++){
+          let checked = 'goods[' + i + '].checked'
+          let sku = JSON.parse(this.data.goods[i].sku)
+          let jsonSku = 'goods[' + i + '].sku'
+          this.setData({
+            [checked]: false,
+            [jsonSku]: sku
+          })
+        }
+        console.log(this.data.goods)
+      }
+    })
   },
   /*site*/
   openSite: function () {
@@ -99,7 +89,7 @@ Page({
     }
     for (let i = 0; i < value.length; i++) {
       for (let j = 0; j < this.data.goods.length; j++) {
-        if (value[i] == this.data.goods[j].goodsId) {
+        if (value[i] == this.data.goods[j].good_id) {
           this.data.goods[j].checked = true
           break
         }
@@ -131,7 +121,7 @@ Page({
     var num = 0
     for (let i = 0; i < this.data.goods.length; i++) {
       if (this.data.goods[i].checked == true) {
-        num = num + (parseFloat(this.data.goods[i].price) * parseInt(this.data.goods[i].number))
+        num = num + (parseFloat(this.data.goods[i].price) * parseInt(this.data.goods[i].num))
       }
     }
     this.setData({
@@ -141,8 +131,8 @@ Page({
   changeGoodsNum: function (e) {
     let id = e.target.id
     for (let i = 0; i < this.data.goods.length; i++) {
-      if (id == this.data.goods[i].goodsId) {
-        let number = "goods[" + i + "].number"
+      if (id == this.data.goods[i].good_id) {
+        let number = "goods[" + i + "].num"
         if (e.detail.value) {
           this.setData({
             [number]: e.detail.value
@@ -160,11 +150,11 @@ Page({
   cutGoodsNum: function (e) {
     let id = e.target.id.substring(3)
     for (let i = 0; i < this.data.goods.length; i++) {
-      if (id == this.data.goods[i].goodsId) {
-        let number = "goods[" + i + "].number"
-        if (this.data.goods[i].number != 1) {
+      if (id == this.data.goods[i].good_id) {
+        let number = "goods[" + i + "].num"
+        if (this.data.goods[i].num != 1) {
           this.setData({
-            [number]: --this.data.goods[i].number
+            [number]: --this.data.goods[i].num
           })
         } else {
           this.setData({
@@ -176,12 +166,13 @@ Page({
     this.addPrice()
   },
   addGoodsNum: function (e) {
+    console.log(22)
     let id = e.target.id.substring(3)
     for (let i = 0; i < this.data.goods.length; i++) {
-      if (id == this.data.goods[i].goodsId) {
-        let number = "goods[" + i + "].number"
+      if (id == this.data.goods[i].good_id) {
+        let number = "goods[" + i + "].num"
         this.setData({
-          [number]: ++this.data.goods[i].number
+          [number]: ++this.data.goods[i].num
         })
       }
     }
@@ -204,12 +195,23 @@ Page({
     }
     this.setData({goods: this.data.goods})
   },
+  navToPay: function(){
+    var orderArr = []
+    for(let i = 0; i < this.data.goods.length; i++){
+      if(this.data.goods[i].checked){
+        orderArr.push(this.data.goods[i].shopping_car_id)
+      }
+    }
+    var shoppingCarId = JSON.stringify(orderArr)
+    if(orderArr.length != 0){
+      wx.navigateTo({
+        url: '/pages/order/order',
+      })
+    }
+  },
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function (options) {
-    this.addPrice()
-  },
 
   /**
    * 生命周期函数--监听页面初次渲染完成

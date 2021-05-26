@@ -173,6 +173,7 @@ background: #eeeeee;
   white-space: nowrap;
 }
 .show-site-box{
+  font-size: 24rpx;
   width: 78%;
 }
 .site-box .site{
@@ -430,4 +431,36 @@ background: #eeeeee;
   text-align: center;
   background: red;
   border-radius: 60rpx;
+}
+/*sku*/
+.select-size-box{
+  box-sizing: border-box;
+  padding-top: 20rpx;
+  height: 320rpx;
+  /* border: 1px solid; */
+}
+.sku-type{
+  margin-bottom: 15rpx;
+}
+.sku-name{
+  font-size: 26rpx;
+  font-weight: 550;
+}
+.sku-type .type-box{
+  margin-top: 15rpx;
+  margin-bottom: 15rpx;
+  font-size: 20rpx;
+}
+.sku-type .type-box text{
+  display: inline-block;
+  padding: 10rpx 20rpx;
+  margin-right: 15rpx;
+  margin-top: 15rpx;
+  /* margin: 15rpx; */
+  background-color: #ebebeb;
+  border-radius: 20rpx;
+}
+.sku-type .type-box .active{
+  background: orangered;
+  color: white;
 }
