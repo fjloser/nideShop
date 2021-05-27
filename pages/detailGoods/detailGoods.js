@@ -14,7 +14,7 @@ Page({
 
     },
 
-    title:'',
+    title: '',
 
     siteCache: '',
     site: '成都市',
@@ -24,14 +24,22 @@ Page({
     curSwiper: 1,
     goodsNum: 1,
     goodsNumCache: '',
-    goods: {price: 888,
-      tag: [{name: '京东超市', title: '一站式囤生活好物'},
-      {name: '自营', title: '怡宝 饮用水 纯净水350*24 整项庄'}
-    ]},
-    goodsCar: [1, 2, 3, 4, 5, 6],
-    siteArr: ['ueueyeyyeyy', '四川省邻水县', 2, 3, 4, 5, 6,6,6, 7,4,3,2,14,5,24]
+    goods: {
+      price: 888,
+      tag: [{
+          name: '京东超市',
+          title: '一站式囤生活好物'
+        },
+        {
+          name: '自营',
+          title: '怡宝 饮用水 纯净水350*24 整项庄'
+        }
+      ]
+    },
+    goodsCar: [],
+    siteArr: ['ueueyeyyeyy', '四川省邻水县', 2, 3, 4, 5, 6, 6, 6, 7, 4, 3, 2, 14, 5, 24]
   },
-  showSize: function(){
+  showSize: function () {
     this.setData({
       selectSizeFlag: !this.data.selectSizeFlag
     })
@@ -39,58 +47,58 @@ Page({
       goodsNumCache: this.data.goodsNum
     })
   },
-  swiperChange(e){
+  swiperChange(e) {
     this.setData({
       curSwiper: e.detail.current + 1
     })
   },
   /*输入数量*/
-  listenGoodsNum: function(e){
-    if(e.detail.value){
+  listenGoodsNum: function (e) {
+    if (e.detail.value) {
       this.setData({
         goodsNumCache: e.detail.value
       })
-    }else{
+    } else {
       this.setData({
         goodsNumCache: this.data.goodsNumCache
       })
     }
   },
   /*数量改变*/
-  addGoodsNum: function(){
+  addGoodsNum: function () {
     this.setData({
       goodsNumCache: ++this.data.goodsNumCache
     })
   },
-  cutGoodsNum: function(){
+  cutGoodsNum: function () {
     this.setData({
       goodsNumCache: --this.data.goodsNumCache
     })
   },
-  changeGoodsNum: function(){
+  changeGoodsNum: function () {
     this.setData({
       goodsNum: this.data.goodsNumCache,
       selectSizeFlag: !this.data.selectSizeFlag
     })
   },
   /*改变数量并加入购物车*/
-  numAndGoodsCar: function(){
+  numAndGoodsCar: function () {
     this.changeGoodsNum()
     this.addGoodsCar()
   },
-  showSite: function(){
+  showSite: function () {
     this.setData({
       selectSiteFlag: !this.data.selectSiteFlag
     })
   },
-  radioChange: function(e){
+  radioChange: function (e) {
     console.log(e)
     console.log(8888)
     this.setData({
       siteCache: e.detail.value
     })
   },
-  changeSite: function(){
+  changeSite: function () {
     this.setData({
       selectSiteFlag: !this.data.selectSiteFlag
     })
@@ -98,7 +106,7 @@ Page({
       site: this.data.siteCache
     })
   },
-  selectSku(e){
+  selectSku(e) {
     console.log(e)
     let type = e.currentTarget.dataset.type
     let index = e.currentTarget.dataset.index
@@ -112,7 +120,7 @@ Page({
     console.log(this.data.selectSku)
   },
   /*add to goodsCar*/
-  getForm(){
+  getForm() {
     let goodId = "form.goodId"
     let num = 'form.size'
     let site = 'form.site'
@@ -124,12 +132,12 @@ Page({
       [num]: this.data.goodsNum,
       [site]: this.data.site,
       [price]: this.data.showGoods.price,
-      [allPrice]: this.data.goodsNum*this.data.showGoods.price,
+      [allPrice]: this.data.goodsNum * this.data.showGoods.price,
       [sku]: this.data.sku
     })
   },
-  addGoodsCar: function(){
-    console.log(this.data.goodsNum*this.data.showGoods.price)
+  addGoodsCar: function () {
+    console.log(this.data.goodsNum * this.data.showGoods.price)
     wx.request({
       method: 'post',
       url: 'http://api_devs.wanxikeji.cn/api/shoppingCarAddModify',
@@ -138,21 +146,39 @@ Page({
         good_id: parseInt(this.data.goodId),
         num: this.data.goodsNum,
         price: this.data.showGoods.price,
-        money: this.data.goodsNum*this.data.showGoods.price,
+        money: this.data.goodsNum * this.data.showGoods.price,
         sku: JSON.stringify(this.data.selectSku),
       },
       success: res => {
-        console.log(res)
+        wx.showToast({
+          title: '成功加入购物车',
+          icon: 'success',
+          duration: 1500
+        })
+        wx.request({
+          method: 'post',
+          url: 'http://api_devs.wanxikeji.cn/api/shoppingCarList',
+          /*购物车列表*/
+          data: {
+            token: wx.getStorageSync('token')
+          },
+          success: res => {
+            this.setData({
+              goodsCar: res.data.data.data
+            })
+          }
+        })
+        // alert('添加成功')
       }
     })
     console.log(1)
   },
-  bindTap: function(){
+  bindTap: function () {
     wx.navigateTo({
       url: '/pages/order/order',
     })
   },
-  navtoGoods: function(){
+  navtoGoods: function () {
     wx.switchTab({
       url: '/pages/goods/goods'
     })
@@ -176,13 +202,13 @@ Page({
         this.setData({
           showGoods: res.data.data,
         })
-        console.log( JSON.parse(this.data.showGoods.info[0].edition))
+        console.log(JSON.parse(this.data.showGoods.info[0].edition))
         this.setData({
           swiper1: JSON.parse(this.data.showGoods.info[0].imgs),
           title: JSON.parse(this.data.showGoods.info[0].info),
           sku: JSON.parse(JSON.parse(this.data.showGoods.info[0].edition))
         })
-        for(let i = 0; i < this.data.sku.length; i++){
+        for (let i = 0; i < this.data.sku.length; i++) {
           let index = 'selectSku[' + i + ']'
           this.setData({
             [index]: this.data.sku[i].sku_size[0].size
@@ -214,9 +240,20 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-
+    wx.request({
+      method: 'post',
+      url: 'http://api_devs.wanxikeji.cn/api/shoppingCarList',
+      /*购物车列表*/
+      data: {
+        token: wx.getStorageSync('token')
+      },
+      success: res => {
+        this.setData({
+          goodsCar: res.data.data.data
+        })
+      }
+    })
   },
-
   /**
    * 生命周期函数--监听页面隐藏
    */

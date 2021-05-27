@@ -2,11 +2,11 @@
 <view class="order-container">
   <view class="custom-mes">
     <view class="custom-info">
-      <text class="custom-name">fj</text>
-      <text class="custom-phone">889988888</text>
+      <text class="custom-name">{{site.name}}</text>
+      <text class="custom-phone">{{site.phone}}</text>
     </view>
     <view class="send-site" bindtap="openSite">
-      {{site}}
+      {{site.detailed}}
     </view>
   </view>
   <scroll-view class="order-box" scroll-y="true">
@@ -20,7 +20,7 @@
           <view class="goods-title">{{item.good_name}}</view>
           <view class="goods-size">
             <view class="sku-list" wx:for="{{item.sku}}" wx:for-index="index1" wx:for-item="item1" wx:key="index1">
-              {{item1}}
+              <text class="sku-size">{{item1}}</text>
             </view>
           </view>
           <view class="goods-price">
@@ -33,7 +33,7 @@
   </scroll-view>
   <view class="pay-box">
     <view class="all-price">总计:<text>{{price}}</text></view>
-    <view class="pay-btn">微信支付</view>
+    <view class="pay-btn" bindtap="weiXinPay">微信支付</view>
   </view>
   <view class="select-site-box" wx:if="{{showSite}}">
     <div class="select-site-wrapper">
@@ -43,9 +43,13 @@
         <radio-group bindchange="radioChange">
           <view class="site-list site-list{{index}}" wx:for="{{siteArr}}" wx:key="index">
             <view class="select">
-              <radio name="site" color="red" style="width: 25rpx; height: 25rpx" value="{{item}}" />
+              <radio name="site" color="red" style="width: 25rpx; height: 25rpx" value="{{index}}"/>
             </view>
-            <view class="select-site">{{item}}</view>
+            <view class="select-site">
+            <view><text>{{item.name}}</text> <text>{{item.phone}}</text></view>
+            <view>{{item.detailed}}</view>
+            <!-- {{item.detailed}} -->
+            </view>
           </view>
         </radio-group>
       </scroll-view>

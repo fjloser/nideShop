@@ -5,4 +5,4 @@
   </view>
   完成
 </view>
-<view class="btn">关闭</view>
+<view class="btn" bindtap="navtoTab">关闭</view>

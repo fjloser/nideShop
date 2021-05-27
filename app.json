@@ -7,7 +7,7 @@
     "pages/person/person",
     "pages/goodsList/goodsList",
     "pages/detailGoods/detailGoods",
-    "pages/complete/complete",
+    "pages/complete/complete", 
     "pages/index/index",
     "pages/order/order"
   ],

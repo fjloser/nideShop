@@ -88,6 +88,7 @@ checkbox .wx-checkbox-input.wx-checkbox-input-checked::before {
 }
 .goods-mes-box{
   display: flex;
+  flex: 1;
   align-items: center;
   margin-left: 20rpx;
 }
@@ -136,12 +137,15 @@ checkbox .wx-checkbox-input.wx-checkbox-input-checked::before {
   height: 30rpx;
   min-height: 30rpx !important;
 }
+.goods-info-box{
+  flex: 1;
+}
 .goods-price .goods-num{
   display: flex;
   align-items: center;
 }
 .goods-price .goods-num text{
-  padding: 0 10rpx;
+  padding: 0 20rpx;
 }
 .pay-box{
   box-sizing: border-box;
@@ -259,4 +263,18 @@ checkbox .wx-checkbox-input.wx-checkbox-input-checked::before {
   line-height: 35rpx;
   font-size: 24rpx;
   color: gray;
+}
+.noGoods{
+  width: 170rpx;
+  padding: 20rpx;
+  background-color: darkcyan;
+  color: white;
+  font-size: 26rpx;
+  text-align: center;
+  border-radius: 40rpx;
+  margin: 0 auto;
+  margin-top: 500rpx;
+}
+.noGoods-box{
+  height: 90vh;
 }

@@ -94,7 +94,7 @@ Page({
   bindTap: function(e){
     console.log(e)
     let typeId = e.currentTarget.dataset.typeid
-    wx.redirectTo({
+    wx.navigateTo({
       url: '../goodsList/goodsList?typeId=' + typeId,
     })
   },

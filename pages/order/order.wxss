@@ -111,6 +111,18 @@
   background: green;
   border-radius: 30rpx;
 }
+
+.sku-list{
+  display: inline-block;
+  margin-right: 10rpx;
+}
+.sku-list > .sku-size::after{
+  content: ',';
+  margin-left: 10rpx;
+}
+.sku-list:nth-last-child(1) > .sku-size::after{
+  content: '';
+}
 /*dizhi*/
 .select-site-box{
   position: fixed;

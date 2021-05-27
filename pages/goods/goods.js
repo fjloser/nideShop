@@ -5,50 +5,30 @@ Page({
    * 页面的初始数据
    */
   data: {
+    noGoods: true,
     editFlag: false,
     editMes: '编辑',
     showSite: false,
     siteCache: '',
     site: '成都市',
     checkAll: false,
-    siteArr: ['ueueyeyyeyy', '四川省邻水县', 2, 3, 4, 5, 6, 6, 6, 7, 4, 3, 2, 14, 5, 24],
-    allPrice: 855,
+    siteArr: ['ueueyeyyeyy', '四川省邻水县', 2, 3, 4, 5, 6, 6, 6, 7, 4, 3, 2, 14, 5, 24],/*地址列表*/
+    allPrice: 0,/*计算价格*/
     goodCar: [],
-    goods: [{
-        type: '1',
-        good_id: '255',
-        price: '52',
-        good_name: '怡宝 饮用水 纯净水350*24 整项庄',
-        size: 'huehehh',
-        number: 1,
-        checked: false
-      }
-    ]
+    goods: [] /*购物车列表*/
   },
   onLoad: function (options) {
-    this.addPrice()
-    wx.request({
-      method: 'post',
-      url: 'http://api_devs.wanxikeji.cn/api/shoppingCarList',
-      data: {
-        token: wx.getStorageSync('token')
-      },
-      success: res => {
-        console.log(res)
-        this.setData({
-          goods: res.data.data.data
-        })
-        for(let i = 0; i < this.data.goods.length; i++){
-          let checked = 'goods[' + i + '].checked'
-          let sku = JSON.parse(this.data.goods[i].sku)
-          let jsonSku = 'goods[' + i + '].sku'
-          this.setData({
-            [checked]: false,
-            [jsonSku]: sku
-          })
-        }
-        console.log(this.data.goods)
+    // this.addPrice()
+  },
+  addPrice: function () {
+    var num = 0
+    for (let i = 0; i < this.data.goods.length; i++) {
+      if (this.data.goods[i].checked == true) {
+        num = num + (parseFloat(this.data.goods[i].price) * parseInt(this.data.goods[i].num))
       }
+    }
+    this.setData({
+      allPrice: num
     })
   },
   /*site*/
@@ -85,9 +65,6 @@ Page({
       this.setData({
         checkAll: false
       })
-    for (let j = 0; j < this.data.goods.length; j++) {
-      this.data.goods[j].checked = false
-    }
     for (let i = 0; i < value.length; i++) {
       for (let j = 0; j < this.data.goods.length; j++) {
         if (value[i] == this.data.goods[j].good_id) {
@@ -118,17 +95,6 @@ Page({
     }
     this.addPrice()
   },
-  addPrice: function () {
-    var num = 0
-    for (let i = 0; i < this.data.goods.length; i++) {
-      if (this.data.goods[i].checked == true) {
-        num = num + (parseFloat(this.data.goods[i].price) * parseInt(this.data.goods[i].num))
-      }
-    }
-    this.setData({
-      allPrice: num
-    })
-  },
   changeGoodsNum: function (e) {
     let id = e.target.id
     for (let i = 0; i < this.data.goods.length; i++) {
@@ -138,10 +104,40 @@ Page({
           this.setData({
             [number]: e.detail.value
           })
+          this.debounce(
+            wx.request({
+                method: 'post',
+                url: 'http://api_devs.wanxikeji.cn/api/shoppingCarAddModify',
+                data: {
+                  token: wx.getStorageSync('token'),
+                  good_id: id,
+                  num: this.data.goods[i].num,
+                  price: this.data.goods[i].price,
+                  money: this.data.goods[i].num*this.data.goods[i].price,
+                  sku: this.data.goods[i].sku,
+                  shopping_car_id: this.data.goods[i].shopping_car_id
+                }
+              }), 500
+          )
         } else {
           this.setData({
             [number]: 1
           })
+          this.debounce(
+            wx.request({
+                method: 'post',
+                url: 'http://api_devs.wanxikeji.cn/api/shoppingCarAddModify',
+                data: {
+                  token: wx.getStorageSync('token'),
+                  good_id: id,
+                  num: this.data.goods[i].num,
+                  price: this.data.goods[i].price,
+                  money: this.data.goods[i].num*this.data.goods[i].price,
+                  sku: this.data.goods[i].sku,
+                  shopping_car_id: this.data.goods[i].shopping_car_id
+                }
+              }), 500
+          )
         }
         break
       }
@@ -157,17 +153,58 @@ Page({
           this.setData({
             [number]: --this.data.goods[i].num
           })
+          this.debounce(
+            wx.request({
+                method: 'post',
+                url: 'http://api_devs.wanxikeji.cn/api/shoppingCarAddModify',
+                data: {
+                  token: wx.getStorageSync('token'),
+                  good_id: id,
+                  num: this.data.goods[i].num,
+                  price: this.data.goods[i].price,
+                  money: this.data.goods[i].num*this.data.goods[i].price,
+                  sku: this.data.goods[i].sku,
+                  shopping_car_id: this.data.goods[i].shopping_car_id
+                }
+              }), 500
+          )
         } else {
           this.setData({
             [number]: 1
           })
+          this.debounce(
+            wx.request({
+                method: 'post',
+                url: 'http://api_devs.wanxikeji.cn/api/shoppingCarAddModify',
+                data: {
+                  token: wx.getStorageSync('token'),
+                  good_id: id,
+                  num: this.data.goods[i].num,
+                  price: this.data.goods[i].price,
+                  money: this.data.goods[i].num*this.data.goods[i].price,
+                  sku: this.data.goods[i].sku,
+                  shopping_car_id: this.data.goods[i].shopping_car_id
+                }
+              }), 500
+          )
         }
       }
     }
     this.addPrice()
   },
+  debounce: function(fn,delay){
+    let timer = null
+    return function() {
+        if(timer){
+            clearTimeout(timer)
+            timer = setTimeout(fn,delay) 
+        }else{
+            timer = setTimeout(fn,delay)
+        }
+    }
+},
   addGoodsNum: function (e) {
-    console.log(22)
+    // console.log(22)
     let id = e.target.id.substring(3)
     for (let i = 0; i < this.data.goods.length; i++) {
       if (id == this.data.goods[i].good_id) {
@@ -175,6 +212,22 @@ Page({
         this.setData({
           [number]: ++this.data.goods[i].num
         })
+        console.log(this.data.goods[i])
+        this.debounce(
+          wx.request({
+              method: 'post',
+              url: 'http://api_devs.wanxikeji.cn/api/shoppingCarAddModify',
+              data: {
+                token: wx.getStorageSync('token'),
+                good_id: id,
+                num: this.data.goods[i].num,
+                price: this.data.goods[i].price,
+                money: this.data.goods[i].num*this.data.goods[i].price,
+                sku: this.data.goods[i].sku,
+                shopping_car_id: this.data.goods[i].shopping_car_id
+              }
+            }), 500
+        )
       }
     }
     this.addPrice()
@@ -189,12 +242,24 @@ Page({
     }
   },
   removeGoods: function(){
+    console.log(this.data.goods)
     for(let i = 0; i < this.data.goods.length; i++){
       if(this.data.goods[i].checked == true){
-        this.data.goods.splice(i, 1)
+        wx.request({
+          method: 'post',
+          url: 'http://api_devs.wanxikeji.cn/api/shoppingCarDelete',
+          data: {
+            token: wx.getStorageSync('token'),
+            shopping_car_id: this.data.goods[i].shopping_car_id
+          },
+          success: res => {
+            console.log(res)
+            this.data.goods.splice(i, 1)
+            this.setData({goods: this.data.goods})
+          }
+        })
       }
     }
-    this.setData({goods: this.data.goods})
   },
   navToPay: function(){
     var orderArr = []
@@ -225,7 +290,31 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-
+    wx.request({
+      method: 'post',
+      url: 'http://api_devs.wanxikeji.cn/api/shoppingCarList',/*购物车列表*/
+      data: {
+        token: wx.getStorageSync('token')
+      },
+      success: res => {
+        console.log(res)
+        this.setData({
+          goods: res.data.data.data
+        })
+        console.log(this.data.goods.length)
+        this.data.goods.length != 0 ? this.setData({noGoods: true}): this.setData({noGoos: false})
+        this.addPrice()
+        for(let i = 0; i < this.data.goods.length; i++){
+          let checked = 'goods[' + i + '].checked'
+          let sku = JSON.parse(this.data.goods[i].sku)
+          let jsonSku = 'goods[' + i + '].sku'
+          this.setData({
+            [checked]: false,
+            [jsonSku]: sku
+          })
+        }
+      }
+    })
   },
 
   /**

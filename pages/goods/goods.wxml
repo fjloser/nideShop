@@ -19,9 +19,9 @@
     </view>
   </view>
   <view>
-    <checkbox-group class="goods-box" bindchange="checkChange">
+    <checkbox-group class="goods-box" bindchange="checkChange" wx:if="{{noGoods}}">
       <view class="goods-list goods-list{{item.goodsId}}" wx:for="{{goods}}" wx:key="index">
-        <view class="goods-shop">店铺名</view>
+        <view class="goods-shop">京东自营店</view>
         <view class="goods-wrapper">
           <view class="radio">
             <checkbox style="border-radius= 30rpx" model:checked="{{item.checked}}" value="{{item.good_id}}"></checkbox>
@@ -55,6 +55,9 @@
         </view>
       </view>
     </checkbox-group>
+    <view class="noGoods-box" wx:if="{{!noGoods}}">
+  <view class="noGoods">暂无订单</view>
+  </view>
     <view class="pay-box">
       <view class="check-box">
         <checkbox class="check-all" checked="{{checkAll}}" bindtap="selectAll"></checkbox>
