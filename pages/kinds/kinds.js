@@ -82,6 +82,7 @@ Page({
     })
     this.checkTypeId()
   },
+//change rightData, get this type's all children
   checkTypeId: function(){
     for(let i = 0; i < this.data.showData.length; i++){
       if(this.data.showData[i].good_type_id == this.data.typeId){
